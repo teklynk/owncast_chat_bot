@@ -21,7 +21,7 @@ $(document).ready(function () {
     function getMessage() {
         // Owncast chat api
         let getChatJson = JSON.parse($.getJSON({
-            'url': "" + owncastDomain + "/api/chat?accessToken=" + accessToken + "",
+            'url': "" + owncastDomain.trim() + "/api/chat?accessToken=" + accessToken.trim() + "",
             'async': false
         }).responseText);
 
@@ -31,7 +31,9 @@ $(document).ready(function () {
         // Return the most recent message object
         let messageBody = getChatJson[0].body;
 
+        // Check if message starts with !
         if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
+            // Do alert
             getAlert(messageBody, getChatJson[0].timestamp);
         }
     }
@@ -39,6 +41,12 @@ $(document).ready(function () {
     function getAlert(chatMsg, timeStamp) {
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg.trim().toLowerCase() === obj.command) {
+
+                // Ignore if already playing an alert
+                if ($('.alertItem').length) {
+                    return false;
+                }
+
                 console.log(obj.command);
                 console.log(obj.image);
                 console.log(obj.audio);
@@ -52,6 +60,7 @@ $(document).ready(function () {
                 // Remove divs before displaying new alert
                 $("#container .alertItem").remove();
 
+                // Create alertItem element
                 $("<div class='alertItem " + obj.command.slice(1) + "'>").appendTo("#container");
 
                 if (obj.audio) {
@@ -72,6 +81,7 @@ $(document).ready(function () {
                     $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem");
                 }
 
+                // Remove alertItem element after timelimit has been reached
                 $("#container .alertItem").fadeIn(500).delay(parseInt(obj.timelimit)).fadeOut(500, function () {
                     console.log('timelimit reached. removing alertItem');
                     $(this).remove();

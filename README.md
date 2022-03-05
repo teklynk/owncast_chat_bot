@@ -1,15 +1,21 @@
-# Owncast alerts overlay
+# Owncast chat bot overlay
+
+
+
+## What is this?
+
+This is an OBS browser source overlay that checks each chat message for chat commands like: !fart, !wow, !dance. You configure each chat command using the commands.json file. Supports playback of video files, audio clips, images...
 
 ### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/bot.html...](http://localhost/bot.html...))
 
-### JSON config files
+### JSON files
 
 - Rename **sample.comands.json** to **commands.json**
 - Rename **sample.config.json** to **config.json**
 
-Edit **comands.json**. Add your own custom !action commands, !so and other bot responses.
+**comands.json**. Add your own custom !action commands and other bot responses.
 
-**config.json** contains your OwnCast Access Token and OwnCast domain url.
+**config.json** Contains your OwnCast Access Token and OwnCast server domain url.
 
 ### Example comands.json file with variables
 ```json
