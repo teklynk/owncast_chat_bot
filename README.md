@@ -16,6 +16,7 @@ This is an OBS browser source overlay that checks each chat message for chat com
 **comands.json**. Add your own custom !action commands and other bot responses.
 
 **config.json** Contains your OwnCast Access Token and OwnCast server domain url.
+Generate an Access Token from your Owncast Admin page > Integrations > Access Token. Create Access Token. Choose the middle option "Can send chat messages on behalf of the owner of this token."
 
 ### Example comands.json file with variables
 ```json
