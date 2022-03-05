@@ -56,8 +56,8 @@ body {
     border-radius: 10px;
     border: solid 1px #000;
     animation: grow 0.5s ease-in-out;
-    background:#000 url('../images/tv_static.gif') no-repeat center center fixed; 
-    background-size: cover; 
+    background: #000 url('../images/tv_static.gif') no-repeat center center fixed;
+    background-size: cover;
     box-shadow: 4px 3px 8px 1px #000000;
 }
 
@@ -88,10 +88,10 @@ body {
 
 @keyframes grow {
     from {
-        transform:scale(0);
+        transform: scale(0);
     }
     to {
-        transform:scale(1);
+        transform: scale(1);
     }
 }
 

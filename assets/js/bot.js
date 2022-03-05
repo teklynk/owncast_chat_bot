@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	// Sort function
+    // Sort function
     function sortByProperty(property) {
         return function (a, b) {
             if (a[property] < b[property])
@@ -12,41 +12,44 @@ $(document).ready(function () {
     }
 
     // Parse config.json file for accesstoken and domain
-	let configJson = JSON.parse($.getJSON({'url': "./config.json", 'async': false}).responseText);
-	let commandsJson = JSON.parse($.getJSON({'url': "./commands.json", 'async': false}).responseText);
+    let configJson = JSON.parse($.getJSON({'url': "./config.json", 'async': false}).responseText);
+    let commandsJson = JSON.parse($.getJSON({'url': "./commands.json", 'async': false}).responseText);
 
-	let accessToken = configJson[0].accesstoken;
-	let owncastDomain = configJson[0].owncastdomain;
+    let accessToken = configJson[0].accesstoken;
+    let owncastDomain = configJson[0].owncastdomain;
 
-	function getMessage() {
-		// Owncast chat api
-		let getChatJson = JSON.parse($.getJSON({'url': "" + owncastDomain + "/api/chat?accessToken=" + accessToken + "", 'async': false}).responseText);
+    function getMessage() {
+        // Owncast chat api
+        let getChatJson = JSON.parse($.getJSON({
+            'url': "" + owncastDomain + "/api/chat?accessToken=" + accessToken + "",
+            'async': false
+        }).responseText);
 
-		// Sort messages array by timestamp
-	    getChatJson.sort(sortByProperty('timestamp'));
+        // Sort messages array by timestamp
+        getChatJson.sort(sortByProperty('timestamp'));
 
-	    // Return the most recent message object
-	    let messageBody = getChatJson[0].body;
+        // Return the most recent message object
+        let messageBody = getChatJson[0].body;
 
-	    if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
-	    	getAlert(messageBody, getChatJson[0].timestamp);
-	    }
-	}
+        if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
+            getAlert(messageBody, getChatJson[0].timestamp);
+        }
+    }
 
-	function getAlert(chatMsg, timeStamp) {
-		$.each(commandsJson, function (idx, obj) {
-			if (chatMsg.trim().toLowerCase() === obj.command) {
-	            console.log(obj.command);
-				console.log(obj.image);
-				console.log(obj.audio);
-				console.log(obj.video);
-				console.log(obj.message);
-				console.log(obj.timelimit);
+    function getAlert(chatMsg, timeStamp) {
+        $.each(commandsJson, function (idx, obj) {
+            if (chatMsg.trim().toLowerCase() === obj.command) {
+                console.log(obj.command);
+                console.log(obj.image);
+                console.log(obj.audio);
+                console.log(obj.video);
+                console.log(obj.message);
+                console.log(obj.timelimit);
 
-				// Store timestamp of the message that contained a command so that we can reference it later
-				localStorage.setItem('oc_alert_timestamp', timeStamp);
+                // Store timestamp of the message that contained a command so that we can reference it later
+                localStorage.setItem('oc_alert_timestamp', timeStamp);
 
-				// Remove divs before displaying new alert
+                // Remove divs before displaying new alert
                 $("#container .alertItem").remove();
 
                 $("<div class='alertItem " + obj.command.slice(1) + "'>").appendTo("#container");
@@ -73,11 +76,11 @@ $(document).ready(function () {
                     console.log('timelimit reached. removing alertItem');
                     $(this).remove();
                 });
-			}
-		})
-	}
+            }
+        })
+    }
 
-	// Check for new messages every second
-	setInterval(getMessage, 1000);
+    // Check for new messages every second
+    setInterval(getMessage, 1000);
 
 })
