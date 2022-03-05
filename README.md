@@ -4,7 +4,6 @@
 
 ### JSON config files
 
-- Rename **sample.alerts.json** to **alerts.json**
 - Rename **sample.comands.json** to **commands.json**
 - Rename **sample.config.json** to **config.json**
 
