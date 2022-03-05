@@ -1,0 +1,38 @@
+[
+  {
+    "command": "!alert",
+    "image": "",
+    "audio": "",
+    "video": "",
+    "message": "",
+    "say": "",
+    "timelimit": "5000"
+  },
+  {
+    "command": "!test",
+    "image": "teklynk_logo.png",
+    "audio": "",
+    "video": "",
+    "message": "",
+    "say": "",
+    "timelimit": "8000"
+  },
+  {
+    "command": "!fart",
+    "image": "",
+    "audio": "fart1.mp3",
+    "video": "",
+    "message": "",
+    "say": "",
+    "timelimit": "3000"
+  },
+  {
+    "command": "!dance",
+    "image": "",
+    "audio": "",
+    "video": "safetydance.webm",
+    "message": "DANCE!",
+    "say": "",
+    "timelimit": "60000"
+  }
+]
