@@ -2,3 +2,4 @@
 config.json
 alerts.json
 commands.json
+media/*

@@ -21,49 +21,49 @@ Generate an Access Token from your Owncast Admin page > Integrations > Access To
 ```json
 [
     {
-    "command": "!alert",
-    "image": "",
-    "audio": "",
-    "video": "",
-    "message": "",
-    "say": "",
-    "timelimit": "5000"
+        "command": "!alert",
+        "image": "",
+        "audio": "",
+        "video": "",
+        "message": "",
+        "say": "",
+        "timelimit": "5000"
     },
     {
-    "command": "!test",
-    "image": "teklynk_logo.png",
-    "audio": "",
-    "video": "",
-    "message": "",
-    "say": "",
-    "timelimit": "8000"
+        "command": "!test",
+        "image": "teklynk_logo.png",
+        "audio": "",
+        "video": "",
+        "message": "",
+        "say": "",
+        "timelimit": "8000"
     },
     {
-    "command": "!fart",
-    "image": "",
-    "audio": "fart1.mp3",
-    "video": "",
-    "message": "",
-    "say": "ewww",
-    "timelimit": "3000"
+        "command": "!fart",
+        "image": "",
+        "audio": "fart1.mp3",
+        "video": "",
+        "message": "",
+        "say": "ewww",
+        "timelimit": "3000"
     },
     {
-    "command": "!dance",
-    "image": "",
-    "audio": "",
-    "video": "safetydance.webm",
-    "message": "DANCE!",
-    "say": "",
-    "timelimit": "60000"
+        "command": "!dance",
+        "image": "",
+        "audio": "",
+        "video": "safetydance.webm",
+        "message": "DANCE!",
+        "say": "",
+        "timelimit": "60000"
     },
     {
-    "command": "!socials",
-    "image": "",
-    "audio": "",
-    "video": "",
-    "message": "",
-    "say": "Here are my social media links: https://discord.com, https://mastodon.social",
-    "timelimit": "3000"
+        "command": "!socials",
+        "image": "",
+        "audio": "",
+        "video": "",
+        "message": "",
+        "say": "Here are my social media links: https://discord.com, https://mastodon.social",
+        "timelimit": "3000"
     }
 ]
 ```
