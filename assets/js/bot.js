@@ -66,17 +66,18 @@ $(document).ready(function () {
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
                 // Do alert
-                getAlert(messageBody, getChatJson[0].timestamp);
+                getAlert(messageBody, getChatJson[0].timestamp, getChatJson[0].user.id);
             } 
         }
     }
 
-    function getAlert(chatMsg, timeStamp) {
+    function getAlert(chatMsg, timeStamp, userId) {
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg.trim().toLowerCase() === obj.command) {
 
-                // Ignore commands if already playing an alert
-                if ($('.alertItem').length) {
+                // Ignore commands if already playing the command from that user
+                if ($(".alertItem." + obj.command.slice(1) + "." + userId + "").length) {
+                    console.log(obj.command + ': is currently playing');
                     return false;
                 }
 
@@ -92,30 +93,29 @@ $(document).ready(function () {
                 localStorage.setItem('oc_alert_timestamp', timeStamp);
 
                 // Remove divs before displaying new alert
-                $("#container .alertItem").remove();
+                $("#container .alertItem." + obj.command.slice(1) + "").remove();
 
                 // Create alertItem element
-                $("<div class='alertItem " + obj.command.slice(1) + "'>").appendTo("#container");
+                $("<div class='alertItem " + obj.command.slice(1) + " " + userId + "'>").appendTo("#container");
 
                 if (obj.audio) {
-                    let ext = obj.audio.split('.').pop();
-                    $("<audio class='audio' preload='auto' src='./media/" + obj.audio + "' autoplay type='audio/" + ext + "'></audio>").appendTo(".alertItem");
+                    $("<audio class='audio' preload='auto' src='./media/" + obj.audio + "' autoplay></audio>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
                 }
 
                 // Video overlay
                 if (obj.video) {
                     let ext = obj.video.split('.').pop();
-                    $("<video class='video' autoplay src='./media/" + obj.video + "'><source src='./media/" + obj.video + "' type='video/" + ext + "'></video>").appendTo(".alertItem");
+                    $("<video id='clip_" + obj.command.slice(1) + "' class='video' autoplay><source src='./media/" + obj.video + "' type='video/" + ext + "'></video>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
                 }
 
                 // Displays an image in the overlay
                 if (obj.image) {
-                    $("<img class='image' src='./media/" + obj.image + "'/>").appendTo(".alertItem");
+                    $("<img class='image' src='./media/" + obj.image + "'/>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
                 }
 
                 // Displays text in the overlay
                 if (obj.message) {
-                    $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem");
+                    $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
                 }
 
                 // Say a chat message - uses the Name from your accesstoken
@@ -124,8 +124,8 @@ $(document).ready(function () {
                 }
 
                 // Remove alertItem element after timelimit has been reached
-                $("#container .alertItem").fadeIn(500).delay(parseInt(obj.timelimit)).fadeOut(500, function () {
-                    console.log('timelimit reached. removing alertItem');
+                $("#container .alertItem." + obj.command.slice(1) + "." + userId + "").fadeIn(500).delay(parseInt(obj.timelimit)).fadeOut(500, function () {
+                    console.log('timelimit reached. removing ' + obj.command);
                     $(this).remove();
                 });
             }

@@ -27,8 +27,8 @@ body {
 }
 
 .alertItem {
-    display: block;
-    margin-top: 100px;
+    display: inline-block;
+    margin: 10px;
 }
 
 .alertItem p.message {
