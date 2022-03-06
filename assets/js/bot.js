@@ -18,6 +18,14 @@ $(document).ready(function () {
     let accessToken = configJson[0].accesstoken;
     let owncastDomain = configJson[0].owncastdomain;
 
+    if (!accessToken) {
+        alert('accessToken is not set in config.json');
+    }
+
+    if (!owncastDomain) {
+        alert('owncastDomain is not set in config.json');
+    }
+
     function sendMessage(sayMessage) {
         $.ajax({
             type: 'post',
@@ -47,16 +55,19 @@ $(document).ready(function () {
             'async': false
         }).responseText);
 
-        // Sort messages array by timestamp
-        getChatJson.sort(sortByProperty('timestamp'));
+        // Only do this if messages exist
+        if (getChatJson[0]) {
+            // Sort messages array by timestamp
+            getChatJson.sort(sortByProperty('timestamp'));
 
-        // Return the most recent message object
-        let messageBody = getChatJson[0].body;
+            // Return the most recent message object
+            let messageBody = getChatJson[0].body;
 
-        // Check if message starts with !
-        if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
-            // Do alert
-            getAlert(messageBody, getChatJson[0].timestamp);
+            // Check if message starts with !
+            if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
+                // Do alert
+                getAlert(messageBody, getChatJson[0].timestamp);
+            } 
         }
     }
 
@@ -64,11 +75,12 @@ $(document).ready(function () {
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg.trim().toLowerCase() === obj.command) {
 
-                // Ignore if already playing an alert
+                // Ignore commands if already playing an alert
                 if ($('.alertItem').length) {
                     return false;
                 }
 
+                // Debuging - safe to leave this here
                 console.log(obj.command);
                 console.log(obj.image);
                 console.log(obj.audio);
@@ -90,21 +102,24 @@ $(document).ready(function () {
                     $("<audio class='audio' preload='auto' src='./media/" + obj.audio + "' autoplay type='audio/" + ext + "'></audio>").appendTo(".alertItem");
                 }
 
+                // Video overlay
                 if (obj.video) {
                     let ext = obj.video.split('.').pop();
                     $("<video class='video' autoplay src='./media/" + obj.video + "'><source src='./media/" + obj.video + "' type='video/" + ext + "'></video>").appendTo(".alertItem");
                 }
 
+                // Displays an image in the overlay
                 if (obj.image) {
                     $("<img class='image' src='./media/" + obj.image + "'/>").appendTo(".alertItem");
                 }
 
+                // Displays text in the overlay
                 if (obj.message) {
                     $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem");
                 }
 
+                // Say a chat message - uses the Name from your accesstoken
                 if (obj.say) {
-                    // say a chat message
                     sendMessage(obj.say);
                 }
 
@@ -117,7 +132,7 @@ $(document).ready(function () {
         })
     }
 
-    // Check for new messages every second
+    // Check for new messages every second - polls the api
     setInterval(getMessage, 1000);
 
 })
