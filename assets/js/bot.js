@@ -18,6 +18,28 @@ $(document).ready(function () {
     let accessToken = configJson[0].accesstoken;
     let owncastDomain = configJson[0].owncastdomain;
 
+    function sendMessage(sayMessage) {
+        $.ajax({
+            type: 'post',
+            url: owncastDomain + "/api/integrations/chat/send",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            data: JSON.stringify({"body": sayMessage}),
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                console.log(data);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
     function getMessage() {
         // Owncast chat api
         let getChatJson = JSON.parse($.getJSON({
@@ -79,6 +101,11 @@ $(document).ready(function () {
 
                 if (obj.message) {
                     $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem");
+                }
+
+                if (obj.say) {
+                    // say a chat message
+                    sendMessage(obj.say);
                 }
 
                 // Remove alertItem element after timelimit has been reached
