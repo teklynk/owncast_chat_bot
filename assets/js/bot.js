@@ -55,11 +55,14 @@ $(document).ready(function () {
             'async': false
         }).responseText);
 
-        // Only do this if messages exist
+        // Sort messages array by timestamp
         if (getChatJson[0]) {
-            // Sort messages array by timestamp
-            getChatJson.sort(sortByProperty('timestamp'));
-
+            getChatJson.sort(sortByProperty('timestamp'));   
+        }
+        
+        // Only do this if messages exist
+        if (getChatJson[0] && getChatJson[0].type === "CHAT") {
+            
             // Return the most recent message object
             let messageBody = getChatJson[0].body;
 
@@ -69,12 +72,19 @@ $(document).ready(function () {
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
                 // Do the alert
-                getAlert(messageBody, getChatJson[0].timestamp, getChatJson[0].user.id);
-            } 
+                getAlert(messageBody, getChatJson[0].timestamp, getChatJson[0].user.id, getChatJson[0].user.displayName);
+            }
+
+        }
+
+        // Do something with Follows
+        if (getChatJson[0] && getChatJson[0].type === "FEDIVERSE_ENGAGEMENT_FOLLOW" && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
+            // Do the alert for new followers
+            getAlert("!fediversefollow", getChatJson[0].timestamp, getChatJson[0].id, getChatJson[0].body);
         }
     }
 
-    function getAlert(chatMsg, timeStamp, userId) {
+    function getAlert(chatMsg, timeStamp, userId, userName) {
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg.trim().toLowerCase() === obj.command) {
 
@@ -91,6 +101,12 @@ $(document).ready(function () {
                 console.log(obj.video);
                 console.log(obj.message);
                 console.log(obj.timelimit);
+
+                // Remove html characters from message userName/string
+                //userName = userName.replace(/(<([^>]+)>)/ig, '');
+
+                // Replace {username} from commands.json with the actual username
+                obj.message = obj.message.replace("{username}", userName.trim());
 
                 // Store timestamp of the message that contained a command so that we can reference it later
                 localStorage.setItem('oc_alert_timestamp', timeStamp);

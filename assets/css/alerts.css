@@ -45,6 +45,17 @@ body {
     animation: grow 0.5s ease-in-out;
 }
 
+.alertItem.fediversefollow p:nth-of-type(2) {
+    text-shadow: 2px 2px #000;
+    margin-top: 2px;
+    color: #e91e63;
+    font-weight: bold;
+    font-size: 24pt;
+    word-wrap: break-word;
+    font-family: Basic, Helvetica, sans-serif;
+    text-align: center;
+}
+
 .alertItem audio {
     display: none;
     visibility: hidden;
