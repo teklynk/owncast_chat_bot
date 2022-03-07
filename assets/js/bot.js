@@ -63,9 +63,12 @@ $(document).ready(function () {
             // Return the most recent message object
             let messageBody = getChatJson[0].body;
 
+            // Remove html characters from message body/string
+            messageBody = messageBody.replace(/(<([^>]+)>)/ig, '');
+
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
-                // Do alert
+                // Do the alert
                 getAlert(messageBody, getChatJson[0].timestamp, getChatJson[0].user.id);
             } 
         }
@@ -76,12 +79,12 @@ $(document).ready(function () {
             if (chatMsg.trim().toLowerCase() === obj.command) {
 
                 // Ignore commands if already playing the command from that user
-                if ($(".alertItem." + obj.command.slice(1) + "." + userId + "").length) {
+                if ($("#container .alertItem." + obj.command.slice(1) + "." + userId + "").length) {
                     console.log(obj.command + ': is currently playing');
                     return false;
                 }
 
-                // Debuging - safe to leave this here
+                // Debugging - safe to leave this here
                 console.log(obj.command);
                 console.log(obj.image);
                 console.log(obj.audio);
@@ -135,4 +138,4 @@ $(document).ready(function () {
     // Check for new messages every second - polls the api
     setInterval(getMessage, 1000);
 
-})
+});

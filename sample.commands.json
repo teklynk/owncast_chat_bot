@@ -34,5 +34,14 @@
     "message": "DANCE!",
     "say": "",
     "timelimit": "60000"
+  },
+  {
+    "command": "!catjam",
+    "image": "catjam.gif",
+    "audio": "",
+    "video": "",
+    "message": "",
+    "say": "",
+    "timelimit": "10000"
   }
 ]

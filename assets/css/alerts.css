@@ -34,11 +34,12 @@ body {
 .alertItem p.message {
     z-index: 99;
     position: relative;
-    text-shadow: 1px 1px #000000;
+    text-shadow: 2px 2px #000;
     color: #eeeeee;
     font-weight: bold;
-    font-size: 40px;
-    font-family: 'Basic', sans-serif;
+    font-size: 5vw;
+    word-wrap: break-word;
+    font-family: Basic, Helvetica, sans-serif;
     text-align: center;
     margin: 0;
     animation: grow 0.5s ease-in-out;
@@ -50,7 +51,9 @@ body {
 }
 
 .alertItem video {
-    height: 384px;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
     text-align: center;
     z-index: 1;
     border-radius: 10px;
@@ -63,8 +66,16 @@ body {
 
 .alertItem img {
     text-align: center;
-    min-width: 350px;
-    min-height: 350px;
+    min-width: 250px;
+    max-width: 450px;
+    animation: grow 0.5s ease-in-out;
+}
+
+/** Cat Jam **/
+.alertItem.catjam img {
+    text-align: center;
+    min-width: 450px;
+    max-width: 650px;
     animation: grow 0.5s ease-in-out;
 }
 
