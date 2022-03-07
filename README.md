@@ -6,6 +6,8 @@
 
 This is an OBS browser source overlay that checks each chat message for chat commands like: !fart, !wow, !dance. You configure each chat command using the commands.json file. Supports playback of video files, audio clips, images...
 
+Future developement can be tracked here: [https://github.com/teklynk/owncast_chat_bot/projects/1](https://github.com/teklynk/owncast_chat_bot/projects/1)
+
 ### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/owncast_bot/bot.html](http://localhost/bot.html...))
 
 ### JSON files
