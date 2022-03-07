@@ -6,7 +6,7 @@
 
 This is an OBS browser source overlay that checks each chat message for chat commands like: !fart, !wow, !dance. You configure each chat command using the commands.json file. Supports playback of video files, audio clips, images...
 
-### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/bot.html...](http://localhost/bot.html...))
+### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/owncast_bot/bot.html](http://localhost/bot.html...))
 
 ### JSON files
 
@@ -16,7 +16,11 @@ This is an OBS browser source overlay that checks each chat message for chat com
 **comands.json**. Add your own custom !action commands and other bot responses.
 
 **config.json** Contains your OwnCast Access Token and OwnCast server domain url.
-Generate an Access Token from your Owncast Admin page > Integrations > Access Token. Create Access Token. Choose the middle option "Can send chat messages on behalf of the owner of this token." The name of your accesstoken will also be used as the chat name. So, you may want to name it something like: "mybot" or "chatbot"
+
+Generate an Access Token from your Owncast Admin page > Integrations > Access Token. 
+Create Access Token. Choose the middle option "Can send chat messages on behalf of the owner of this token." 
+The name of your accesstoken will also be used as the chat name. So, you may want to name it something like: "mybot" or "chatbot"
+
 ### Example comands.json file with variables
 ```json
 [
@@ -30,11 +34,11 @@ Generate an Access Token from your Owncast Admin page > Integrations > Access To
         "timelimit": "5000"
     },
     {
-        "command": "!test",
-        "image": "teklynk_logo.png",
+        "command": "!hello",
+        "image": "",
         "audio": "",
         "video": "",
-        "message": "",
+        "message": "Hello {username}. Welcome in.",
         "say": "",
         "timelimit": "8000"
     },
@@ -43,7 +47,7 @@ Generate an Access Token from your Owncast Admin page > Integrations > Access To
         "image": "",
         "audio": "fart1.mp3",
         "video": "",
-        "message": "",
+        "message": "{username} just farted!",
         "say": "ewww",
         "timelimit": "3000"
     },
@@ -72,8 +76,8 @@ Generate an Access Token from your Owncast Admin page > Integrations > Access To
 - **"image":** Show image in the overlay
 - **"audio":** Plays an audio file
 - **"video":** Plays a video file
-- **"message":** Displays a message in the overlay
-- **"say":** Says a message in chat
+- **"message":** Displays a message in the overlay. Can include {username}.
+- **"say":** Says a message in chat. Can include {username}.
 - **"timelimit":** (miliseconds) How long the alert runs
 
 ### Media Support
