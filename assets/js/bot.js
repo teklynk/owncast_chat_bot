@@ -49,6 +49,7 @@ $(document).ready(function () {
     }
 
     function getMessage() {
+
         // Owncast chat api
         let getChatJson = JSON.parse($.getJSON({
             'url': "" + owncastDomain.trim() + "/api/chat?accessToken=" + accessToken.trim() + "",
@@ -85,8 +86,40 @@ $(document).ready(function () {
     }
 
     function getAlert(chatMsg, timeStamp, userId, userName) {
+
+        chatMsg = chatMsg.trim().toLowerCase();
+
+
+
         $.each(commandsJson, function (idx, obj) {
-            if (chatMsg.trim().toLowerCase() === obj.command) {
+            if (chatMsg === obj.command) {
+
+                let coolDownExpired;
+
+                let coolDown = parseInt(obj.cooldown);
+
+                let date = new Date();
+
+                if (!localStorage.getItem(chatMsg)) {
+                    localStorage.setItem(chatMsg, date.getTime());
+                }
+
+                //console.log(parseInt(localStorage.getItem(chatMsg)) + coolDown);
+                //console.log(date.getTime());
+
+                if (date.getTime() > parseInt(localStorage.getItem(chatMsg)) + coolDown) {
+                    console.log('cooldown expired');
+                    coolDownExpired = true;
+                    localStorage.setItem(chatMsg, date.getTime());
+                } else {
+                    coolDownExpired = false;
+                }
+
+                // Ignore if cooldown has not expired
+                if (coolDownExpired === false) {
+                    console.log('cooldown happening');
+                    return false;
+                }
 
                 // Ignore commands if already playing the command from that user
                 if ($("#container .alertItem." + obj.command.slice(1) + "." + userId + "").length) {
@@ -118,7 +151,7 @@ $(document).ready(function () {
                 $("<div class='alertItem " + obj.command.slice(1) + " " + userId + "'>").appendTo("#container");
 
                 if (obj.audio) {
-                    $("<audio class='audio' preload='auto' src='./media/" + obj.audio + "' autoplay></audio>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
+                    $("<audio class='audio' src='./media/" + obj.audio + "' autoplay></audio>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
                 }
 
                 // Video overlay

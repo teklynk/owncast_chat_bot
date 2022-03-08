@@ -31,7 +31,8 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
         "video": "",
         "message": "",
         "say": "",
-        "timelimit": "5000"
+        "timelimit": "5000",
+    	"cooldown": "90000"
     },
     {
         "command": "!hello",
@@ -40,7 +41,8 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
         "video": "",
         "message": "Hello {username}. Welcome in.",
         "say": "",
-        "timelimit": "8000"
+        "timelimit": "8000",
+    	"cooldown": "90000"
     },
     {
         "command": "!fart",
@@ -49,7 +51,8 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
         "video": "",
         "message": "{username} just farted!",
         "say": "ewww",
-        "timelimit": "3000"
+        "timelimit": "3000",
+    	"cooldown": "90000"
     },
     {
         "command": "!dance",
@@ -58,7 +61,8 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
         "video": "safetydance.webm",
         "message": "DANCE!",
         "say": "",
-        "timelimit": "60000"
+        "timelimit": "60000",
+    	"cooldown": "90000"
     },
     {
         "command": "!socials",
@@ -67,7 +71,8 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
         "video": "",
         "message": "",
         "say": "Here are my social media links: https://discord.com, https://mastodon.social",
-        "timelimit": "3000"
+        "timelimit": "3000",
+    	"cooldown": "90000"
     }
 ]
 ```
@@ -79,6 +84,7 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
 - **"message":** Displays a message in the overlay. Can include {username}.
 - **"say":** Says a message in chat. Can include {username}.
 - **"timelimit":** (miliseconds) How long the alert runs
+- **"cooldown":** (miliseconds) How long to wait before the alert can be used again.
 
 ### Media Support
 Place all media (images, sounds, videos) inside the media folder/directory

@@ -37,7 +37,7 @@ body {
     text-shadow: 2px 2px #000;
     color: #eeeeee;
     font-weight: bold;
-    font-size: 5vw;
+    font-size: 4vw;
     word-wrap: break-word;
     font-family: Basic, Helvetica, sans-serif;
     text-align: center;
@@ -50,7 +50,7 @@ body {
     margin-top: 2px;
     color: #e91e63;
     font-weight: bold;
-    font-size: 24pt;
+    font-size: 2vw;
     word-wrap: break-word;
     font-family: Basic, Helvetica, sans-serif;
     text-align: center;
@@ -62,7 +62,7 @@ body {
 }
 
 .alertItem video {
-    width: 100%;
+    width: 40vh;
     height: auto;
     max-height: 100%;
     text-align: center;
@@ -77,16 +77,8 @@ body {
 
 .alertItem img {
     text-align: center;
-    min-width: 250px;
-    max-width: 450px;
-    animation: grow 0.5s ease-in-out;
-}
-
-/** Cat Jam **/
-.alertItem.catjam img {
-    text-align: center;
-    min-width: 450px;
-    max-width: 650px;
+    width: 40vh;
+    height: auto;
     animation: grow 0.5s ease-in-out;
 }
 
