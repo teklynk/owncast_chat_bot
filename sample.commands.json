@@ -6,7 +6,8 @@
     "video": "",
     "message": "",
     "say": "",
-    "timelimit": "5000"
+    "timelimit": "5000",
+    "cooldown": "90000"
   },
   {
     "command": "!test",
@@ -15,7 +16,8 @@
     "video": "",
     "message": "",
     "say": "",
-    "timelimit": "8000"
+    "timelimit": "8000",
+    "cooldown": "90000"
   },
   {
     "command": "!fart",
@@ -24,7 +26,8 @@
     "video": "",
     "message": "",
     "say": "",
-    "timelimit": "3000"
+    "timelimit": "3000",
+    "cooldown": "90000"
   },
   {
     "command": "!dance",
@@ -33,7 +36,8 @@
     "video": "safetydance.webm",
     "message": "DANCE!",
     "say": "",
-    "timelimit": "60000"
+    "timelimit": "60000",
+    "cooldown": "90000"
   },
   {
     "command": "!catjam",
@@ -42,6 +46,7 @@
     "video": "",
     "message": "",
     "say": "",
-    "timelimit": "10000"
+    "timelimit": "10000",
+    "cooldown": "90000"
   }
 ]
