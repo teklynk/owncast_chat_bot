@@ -26,6 +26,13 @@ $(document).ready(function () {
         alert('owncastDomain is not set in config.json');
     }
 
+    // Initial load of all commands into localStorage. Refreshing the broswer source will reset cooldown to zero
+    if (commandsJson.length) {
+        for (let x in commandsJson) {
+            localStorage.setItem(commandsJson[x]['command'], '0');
+        }
+    }
+
     function sendMessage(sayMessage) {
         $.ajax({
             type: 'post',
@@ -58,12 +65,12 @@ $(document).ready(function () {
 
         // Sort messages array by timestamp
         if (getChatJson[0]) {
-            getChatJson.sort(sortByProperty('timestamp'));   
+            getChatJson.sort(sortByProperty('timestamp'));
         }
-        
+
         // Only do this if messages exist
         if (getChatJson[0] && getChatJson[0].type === "CHAT") {
-            
+
             // Return the most recent message object
             let messageBody = getChatJson[0].body;
 
@@ -87,28 +94,29 @@ $(document).ready(function () {
 
     function getAlert(chatMsg, timeStamp, userId, userName) {
 
-        chatMsg = chatMsg.trim().toLowerCase();
+        chatMsg = chatMsg.replace(/(<([^>]+)>)/ig, '');
+        userName = userName.replace(/(<([^>]+)>)/ig, '');
 
-
+        let coolDownExpired = true;
 
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg === obj.command) {
 
-                let coolDownExpired;
+                // common selector used through out the code
+                let alertElem = ".alertItem." + obj.command.slice(1) + "." + userId + "";
 
                 let coolDown = parseInt(obj.cooldown);
 
                 let date = new Date();
 
-                if (!localStorage.getItem(chatMsg)) {
-                    localStorage.setItem(chatMsg, date.getTime());
-                }
+                // Store timestamp of the message so that we can reference it later
+                localStorage.setItem('oc_alert_timestamp', timeStamp);
 
-                //console.log(parseInt(localStorage.getItem(chatMsg)) + coolDown);
-                //console.log(date.getTime());
+                // Replace {username} from commands.json with the actual username
+                obj.message = obj.message.replace("{username}", userName.trim());
 
+                // Compare current time with the stored timestamp
                 if (date.getTime() > parseInt(localStorage.getItem(chatMsg)) + coolDown) {
-                    console.log('cooldown expired');
                     coolDownExpired = true;
                     localStorage.setItem(chatMsg, date.getTime());
                 } else {
@@ -117,57 +125,39 @@ $(document).ready(function () {
 
                 // Ignore if cooldown has not expired
                 if (coolDownExpired === false) {
-                    console.log('cooldown happening');
                     return false;
                 }
 
                 // Ignore commands if already playing the command from that user
-                if ($("#container .alertItem." + obj.command.slice(1) + "." + userId + "").length) {
-                    console.log(obj.command + ': is currently playing');
+                if ($('#container ' + alertElem).length) {
                     return false;
                 }
 
-                // Debugging - safe to leave this here
-                console.log(obj.command);
-                console.log(obj.image);
-                console.log(obj.audio);
-                console.log(obj.video);
-                console.log(obj.message);
-                console.log(obj.timelimit);
-
-                // Remove html characters from message userName/string
-                //userName = userName.replace(/(<([^>]+)>)/ig, '');
-
-                // Replace {username} from commands.json with the actual username
-                obj.message = obj.message.replace("{username}", userName.trim());
-
-                // Store timestamp of the message that contained a command so that we can reference it later
-                localStorage.setItem('oc_alert_timestamp', timeStamp);
-
                 // Remove divs before displaying new alert
-                $("#container .alertItem." + obj.command.slice(1) + "").remove();
+                $('#container ' + alertElem).remove();
 
                 // Create alertItem element
                 $("<div class='alertItem " + obj.command.slice(1) + " " + userId + "'>").appendTo("#container");
 
+                // Audio overlay
                 if (obj.audio) {
-                    $("<audio class='audio' src='./media/" + obj.audio + "' autoplay></audio>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
+                    $("<audio class='audio' src='./media/" + obj.audio + "' autoplay></audio>").appendTo(alertElem);
                 }
 
                 // Video overlay
                 if (obj.video) {
                     let ext = obj.video.split('.').pop();
-                    $("<video id='clip_" + obj.command.slice(1) + "' class='video' autoplay><source src='./media/" + obj.video + "' type='video/" + ext + "'></video>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
+                    $("<video id='clip_" + obj.command.slice(1) + "' class='video' autoplay><source src='./media/" + obj.video + "' type='video/" + ext + "'></video>").appendTo(alertElem);
                 }
 
                 // Displays an image in the overlay
                 if (obj.image) {
-                    $("<img class='image' src='./media/" + obj.image + "'/>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
+                    $("<img class='image' src='./media/" + obj.image + "'/>").appendTo(alertElem);
                 }
 
                 // Displays text in the overlay
                 if (obj.message) {
-                    $("<p class='message'>" + obj.message + "</p>").appendTo(".alertItem." + obj.command.slice(1) + "." + userId + "");
+                    $("<p class='message'>" + obj.message + "</p>").appendTo(alertElem);
                 }
 
                 // Say a chat message - uses the Name from your accesstoken
@@ -176,8 +166,7 @@ $(document).ready(function () {
                 }
 
                 // Remove alertItem element after timelimit has been reached
-                $("#container .alertItem." + obj.command.slice(1) + "." + userId + "").fadeIn(500).delay(parseInt(obj.timelimit)).fadeOut(500, function () {
-                    console.log('timelimit reached. removing ' + obj.command);
+                $('#container ' + alertElem).fadeIn(500).delay(parseInt(obj.timelimit)).fadeOut(500, function () {
                     $(this).remove();
                 });
             }

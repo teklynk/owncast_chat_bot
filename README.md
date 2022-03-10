@@ -10,11 +10,6 @@ Future developement can be tracked here: [https://github.com/teklynk/owncast_cha
 
 ### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/owncast_bot/bot.html](http://localhost/bot.html...))
 
-### JSON files
-
-- Rename **sample.comands.json** to **commands.json**
-- Rename **sample.config.json** to **config.json**
-
 **comands.json**. Add your own custom !action commands and other bot responses.
 
 **config.json** Contains your OwnCast Access Token and OwnCast server domain url.
@@ -22,6 +17,18 @@ Future developement can be tracked here: [https://github.com/teklynk/owncast_cha
 Generate an Access Token from your Owncast Admin page > Integrations > Access Token. 
 Create Access Token. Choose the middle option "Can send chat messages on behalf of the owner of this token." 
 The name of your accesstoken will also be used as the chat name. So, you may want to name it something like: "mybot" or "chatbot"
+
+
+### Install and Run
+
+- Clone or download this repo.
+- Setup a simple NGINX web server on your local machine.
+- Use XAMPP, WampServer.
+- If you have Python installed on your machine, you can run a simple http web server using python. `python3 -m http.server 8000 --bind 127.0.0.1` OR `python2 -m SimpleHTTPServer 8000`
+- **JSON files**
+  - Rename **sample.comands.json** to **commands.json**
+  - Rename **sample.config.json** to **config.json**
+- Add http://localhost:8000/owncast_chat_bot/bot.html as a browser source in OBS with a size of 1920x1080 and a Refresh Rate of 60.
 
 ### Example comands.json file with variables
 ```json
@@ -98,10 +105,3 @@ Place all media (images, sounds, videos) inside the media folder/directory
 ### Style Sheet
 
 assets/css/alerts.css
-
-### Install and Run
-
-- Clone or download this repo.
-- Setup a simple NGINX web server on your local machine.
-- Use XAMPP, WampServer.
-- If you have Python installed on your machine, you can run a simple http web server using python. `python3 -m http.server 8000 --bind 127.0.0.1` OR `python2 -m SimpleHTTPServer 8000`
