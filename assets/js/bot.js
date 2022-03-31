@@ -74,8 +74,8 @@ $(document).ready(function () {
             // Return the most recent message object
             let messageBody = getChatJson[0].body;
 
-            // Remove html characters from message body/string
-            messageBody = messageBody.replace(/(<([^>]+)>)/ig, '');
+            // Remove html characters from message body/string and trim
+            messageBody = messageBody.replace(/(<([^>]+)>)/ig, '').trim();
 
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {

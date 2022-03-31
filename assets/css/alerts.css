@@ -34,15 +34,16 @@ body {
 .alertItem p.message {
     z-index: 99;
     position: relative;
-    text-shadow: 2px 2px #000;
+    text-shadow: 1px 1px #000000;
+    animation: glow 1s ease-in-out infinite alternate;
     color: #eeeeee;
     font-weight: bold;
-    font-size: 4vw;
-    word-wrap: break-word;
-    font-family: Basic, Helvetica, sans-serif;
+    font-size: 40px;
+    font-family: 'Basic', sans-serif;
     text-align: center;
     margin: 0;
-    animation: grow 0.5s ease-in-out;
+    height: auto;
+    width: 50vw;
 }
 
 .alertItem.fediversefollow p:nth-of-type(2) {
@@ -62,24 +63,25 @@ body {
 }
 
 .alertItem video {
-    width: 40vh;
     height: auto;
-    max-height: 100%;
+    width: 50vw;
     text-align: center;
     z-index: 1;
     border-radius: 10px;
     border: solid 1px #000;
     animation: grow 0.5s ease-in-out;
-    background: #000 url('../images/tv_static.gif') no-repeat center center fixed;
-    background-size: cover;
+    background:#000 url('../images/tv_static.gif') no-repeat center center fixed; 
+    background-size: cover; 
     box-shadow: 4px 3px 8px 1px #000000;
 }
 
 .alertItem img {
-    text-align: center;
-    width: 40vh;
+    z-index: 1;
     height: auto;
-    animation: grow 0.5s ease-in-out;
+    width: 50vw;
+    border: solid 0 transparent;
+    border-radius: 5px;
+    animation: grow 1s ease-in-out;
 }
 
 @keyframes glow {
