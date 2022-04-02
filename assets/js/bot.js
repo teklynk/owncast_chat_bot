@@ -79,6 +79,13 @@ $(document).ready(function () {
 
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
+
+                // Ignore if alert is already playing
+                if ($(".alertItem").length) {
+                    console.log('blocked');
+                    return false; // Exit and Do nothing
+                }
+
                 // Do the alert
                 getAlert(messageBody, getChatJson[0].timestamp, getChatJson[0].user.id, getChatJson[0].user.displayName);
             }
