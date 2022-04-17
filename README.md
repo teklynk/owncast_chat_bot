@@ -1,12 +1,13 @@
 # Owncast chat bot overlay
 
 
-
 ## What is this?
+
 
 This is an OBS browser source overlay that checks each chat message for chat commands like: !fart, !wow, !dance. You configure each chat command using the commands.json file. Supports playback of video files, audio clips, images...
 
-Future developement can be tracked here: [https://github.com/teklynk/owncast_chat_bot/projects/1](https://github.com/teklynk/owncast_chat_bot/projects/1)
+Future development can be tracked here: [https://github.com/teklynk/owncast_chat_bot/projects/1](https://github.com/teklynk/owncast_chat_bot/projects/1)
+
 
 ### ** Do not use this on a public server. This is meant to run locally (localhost) or on an internal server ([http://localhost/owncast_bot/bot.html](http://localhost/bot.html...))
 
@@ -28,9 +29,11 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
 - **JSON files**
   - Rename **sample.comands.json** to **commands.json**
   - Rename **sample.config.json** to **config.json**
+  - Add your domain and access token to **config.json**
 - Add http://localhost:8000/owncast_chat_bot/bot.html as a browser source in OBS with a size of 1920x1080 and a Refresh Rate of 60.
 
-### Example comands.json file with variables
+
+### Example comands.json file with {username} variable
 ```json
 [
     {
@@ -95,13 +98,27 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
 - **"timelimit":** (miliseconds) How long the alert runs
 - **"cooldown":** (miliseconds) How long to wait before the alert can be used again.
 
+
 ### Media Support
+
 Place all media (images, sounds, videos) inside the media folder/directory
 
 - **Video** : webm, ogg, mp4
 - **Audio** : mp3, ogg
-- **Images** : gif, png, jpg
+- **Images** : gif, png, jpg, webp
+
 
 ### Style Sheet
 
 assets/css/alerts.css
+
+Each command is set as a class name on the alertItem div so that you can add custom css for each alert if needed.
+```html
+<style>
+    .alertItem.hello p.message {
+        text-shadow: 2px 2px #990000;
+        font-size: 60px;
+    }
+</style>
+<div class='alertItem hello eXyz1Oy9'></div>
+```

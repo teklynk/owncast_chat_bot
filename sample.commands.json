@@ -35,7 +35,7 @@
     "audio": "",
     "video": "safetydance.webm",
     "message": "DANCE!",
-    "say": "",
+    "say": "Lets DANCE!",
     "timelimit": "60000",
     "cooldown": "90000"
   },
@@ -48,5 +48,15 @@
     "say": "",
     "timelimit": "10000",
     "cooldown": "90000"
+  },
+  {
+    "command": "!fediversefollow",
+    "image": "catjam.gif",
+    "audio": "song2.mp3",
+    "video": "",
+    "message": "Thanks for the follow {username}!",
+    "say": "Thanks for the follow {username}!",
+    "timelimit": "6000",
+    "cooldown": "1000"
   }
 ]

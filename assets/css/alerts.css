@@ -5,6 +5,7 @@ body {
     background: transparent;
     padding: 0;
     margin: 0;
+    font-family: 'Basic', sans-serif;
 }
 
 .text-center {
@@ -28,33 +29,20 @@ body {
 
 .alertItem {
     display: inline-block;
-    margin: 10px;
+    margin: 20px;
+    animation: grow 0.5s ease-in-out;
 }
 
 .alertItem p.message {
     z-index: 99;
     position: relative;
     text-shadow: 1px 1px #000000;
-    animation: glow 1s ease-in-out infinite alternate;
     color: #eeeeee;
     font-weight: bold;
     font-size: 40px;
-    font-family: 'Basic', sans-serif;
     text-align: center;
     margin: 0;
     height: auto;
-    width: 50vw;
-}
-
-.alertItem.fediversefollow p:nth-of-type(2) {
-    text-shadow: 2px 2px #000;
-    margin-top: 2px;
-    color: #e91e63;
-    font-weight: bold;
-    font-size: 2vw;
-    word-wrap: break-word;
-    font-family: Basic, Helvetica, sans-serif;
-    text-align: center;
 }
 
 .alertItem audio {
@@ -64,13 +52,9 @@ body {
 
 .alertItem video {
     height: auto;
-    width: 50vw;
+    width: 400px;
     text-align: center;
-    z-index: 1;
-    border-radius: 10px;
-    border: solid 1px #000;
-    animation: grow 0.5s ease-in-out;
-    background:#000 url('../images/tv_static.gif') no-repeat center center fixed; 
+    background:#ccc url('../images/tv_static.gif') no-repeat center center fixed;
     background-size: cover; 
     box-shadow: 4px 3px 8px 1px #000000;
 }
@@ -78,10 +62,23 @@ body {
 .alertItem img {
     z-index: 1;
     height: auto;
-    width: 50vw;
+    width: 250px;
     border: solid 0 transparent;
-    border-radius: 5px;
-    animation: grow 1s ease-in-out;
+}
+
+.alertItem.fediversefollow img {
+    width: 250px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.alertItem.fediversefollow p.message {
+    text-shadow: 2px 2px #000;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 40px;
+    word-wrap: break-word;
+    text-align: center;
 }
 
 @keyframes glow {

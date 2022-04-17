@@ -80,7 +80,7 @@ $(document).ready(function () {
             // Check if message starts with !
             if (messageBody.startsWith('!') && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
 
-                // Ignore if alert is already playing
+                // Ignore commands if alert is already playing - prevents alerts from stacking
                 if ($(".alertItem").length) {
                     console.log('blocked');
                     return false; // Exit and Do nothing
@@ -94,33 +94,36 @@ $(document).ready(function () {
 
         // Do something with Follows
         if (getChatJson[0] && getChatJson[0].type === "FEDIVERSE_ENGAGEMENT_FOLLOW" && localStorage.getItem('oc_alert_timestamp') !== getChatJson[0].timestamp) {
-            // Do the alert for new followers
+            // Do the !fediversefollow command for new followers
             getAlert("!fediversefollow", getChatJson[0].timestamp, getChatJson[0].id, getChatJson[0].body);
         }
     }
 
     function getAlert(chatMsg, timeStamp, userId, userName) {
 
+        // Sanitize messages and usernames just to be safe
         chatMsg = chatMsg.replace(/(<([^>]+)>)/ig, '');
         userName = userName.replace(/(<([^>]+)>)/ig, '');
 
+        // Default
         let coolDownExpired = true;
 
         $.each(commandsJson, function (idx, obj) {
             if (chatMsg === obj.command) {
 
-                // common selector used through out the code
+                // Common selector used through out the code
                 let alertElem = ".alertItem." + obj.command.slice(1) + "." + userId + "";
 
                 let coolDown = parseInt(obj.cooldown);
 
                 let date = new Date();
 
-                // Store timestamp of the message so that we can reference it later
+                // Stores timestamp of the message so that we can reference it later
                 localStorage.setItem('oc_alert_timestamp', timeStamp);
 
-                // Replace {username} from commands.json with the actual username
+                // Replaces {username} from commands.json with the actual username
                 obj.message = obj.message.replace("{username}", userName.trim());
+                obj.say = obj.say.replace("{username}", userName.trim());
 
                 // Compare current time with the stored timestamp
                 if (date.getTime() > parseInt(localStorage.getItem(chatMsg)) + coolDown) {
