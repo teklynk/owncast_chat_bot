@@ -33,6 +33,11 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
 - Add http://localhost:8000/owncast_chat_bot/bot.html as a browser source in OBS with a size of 1920x1080 and a Refresh Rate of 60.
 
 
+### Send a test message
+```curl
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer YOURAUTHTOKEN" -d '{"body": "I am a system message!"}' http://YOUR.OWNCAST.SERVER/api/integrations/chat/send
+```
+
 ### Example comands.json file with {username} variable
 ```json
 [
