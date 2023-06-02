@@ -29,14 +29,13 @@ body {
 
 .alertItem {
     display: inline-block;
-    margin: 20px;
-    animation: grow 0.5s ease-in-out;
+    margin: 200px 20px 20px 20px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .alertItem p.message {
-    z-index: 99;
     position: relative;
-    text-shadow: 1px 1px #000000;
+    text-shadow: 2px 2px #99000090;
     color: #eeeeee;
     font-weight: bold;
     font-size: 40px;
@@ -51,19 +50,125 @@ body {
 }
 
 .alertItem video {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
     height: auto;
     width: 400px;
     text-align: center;
-    background:#ccc url('../images/tv_static.gif') no-repeat center center fixed;
-    background-size: cover; 
+    background: #ccc url('../images/tv_static.gif') no-repeat center center fixed;
+    background-size: cover;
     box-shadow: 4px 3px 8px 1px #000000;
 }
 
 .alertItem img {
-    z-index: 1;
     height: auto;
     width: 250px;
     border: solid 0 transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.alertItem.run p.message {
+    text-shadow: 2px 2px #000000;
+    font-size: 100px;
+    color:#990000;
+}
+
+.alertItem.pepedance img, .alertItem.fbi img, .alertItem.thuglife img, .alertItem.sus img, .alertItem.rip img, .alertItem.sadge img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 400px;
+}
+
+.alertItem.thuglife img {
+    left: 150px;
+    bottom: 110px;
+    margin: 0;
+    padding: 0;
+    width: 100px !important;
+}
+
+/*css for Save alert*/
+.alertItem.save {
+    animation: grow 0.5s ease-in-out;
+    padding: 20px;
+    border: solid 0 transparent;
+    border-radius: 0;
+    width: 100%;
+    background: #990000;
+    vertical-align: middle;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+.alertItem.save p.message {
+    font-size: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.alertItem.hello, .alertItem.hi {
+    animation: fadeIn 0.5s ease-in-out;
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+.alertItem.hello img, .alertItem.hi img {
+    width: 400px !important;
+    margin-right: -100px;
+}
+
+.alertItem.fart img {
+    width: 900px !important;
+}
+
+.alertItem.boom img {
+    width: 900px !important;
+}
+
+.alertItem.nice, .alertItem.clap {
+    animation: fadeIn 0.5s ease-in-out;
+    position: absolute;
+    left: 40%;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+.alertItem.nice img, .alertItem.clap img {
+    width: 800px !important;
+}
+
+.alertItem.nuke {
+    animation: fadeIn 0.5s ease-in-out !important;
+    position: absolute;
+    left: 0;
+    bottom: 150px;
+    margin: 0 0 0 0;
+    padding: 0;
+}
+.alertItem.nuke img {
+   width: 400px !important; 
+}
+
+.alertItem.catjam {
+    animation: fadeIn 0.5s ease-in-out;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.alertItem.catjam img {
+    width: 800px !important;
 }
 
 .alertItem.fediversefollow img {
@@ -73,7 +178,7 @@ body {
 }
 
 .alertItem.fediversefollow p.message {
-    text-shadow: 2px 2px #000;
+    text-shadow: 2px 2px #99000090;
     margin-top: 20px;
     font-weight: bold;
     font-size: 40px;
@@ -115,4 +220,9 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }

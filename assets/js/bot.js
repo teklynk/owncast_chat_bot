@@ -56,7 +56,7 @@ $(document).ready(function () {
     }
 
     function getMessage() {
-
+        
         // Owncast chat api
         let getChatJson = JSON.parse($.getJSON({
             'url': "" + owncastDomain.trim() + "/api/chat?accessToken=" + accessToken.trim() + "",
@@ -67,6 +67,8 @@ $(document).ready(function () {
         if (getChatJson[0]) {
             getChatJson.sort(sortByProperty('timestamp'));
         }
+
+        console.log(getChatJson);
 
         // Only do this if messages exist
         if (getChatJson[0] && getChatJson[0].type === "CHAT") {
