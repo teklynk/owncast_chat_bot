@@ -27,6 +27,7 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
   - Rename **sample.config.json** to **config.json**
   - Add your domain and access token to **config.json**
 - Add http://localhost:8080/owncast_chat_bot/bot.html as a browser source in OBS with a size of 1920x1080 and a Refresh Rate of 60.
+- Add media files (images, videos, sounds) to the ```media``` directory.
 
 
 ### Send a test message
