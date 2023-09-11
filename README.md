@@ -19,6 +19,12 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
 
 ### Install and Run
 
+#### Run this bot from your owncast instance. (recommended method)
+On your owncast server create a public directory: owncast/data/public and place the owncast_bot folder and all its files inside like so: owncast/data/public/owncast_bot/.
+
+The browser source url will then be: https://YOUR.OWNCAST.SERVER/public/owncast_bot/bot.html
+
+#### Run this bot locally
 - Clone or download this repo.
 - npm install
 - npm run server
@@ -28,6 +34,19 @@ The name of your accesstoken will also be used as the chat name. So, you may wan
   - Add your domain and access token to **config.json**
 - Add http://localhost:8000/bot.html as a browser source in OBS with a size of 1920x1080 and a Refresh Rate of 60.
 - Add media files (images, videos, sounds) to the ```media``` directory.
+
+### If having CORS errors/issues.
+Add this to your owncast web server config:
+
+NGINX
+```nginx
+add_header Access-Control-Allow-Headers "*" always;
+```
+
+APACHE
+```apache
+Access-Control-Allow-Origin:*
+```
 
 
 ### Send a test message

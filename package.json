@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "server": "http-server -p 8000"
+    "server": "http-server -p 8000 --cors=*"
   },
   "author": "",
   "license": "ISC",
